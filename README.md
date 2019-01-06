@@ -7,7 +7,7 @@
 	<br>
 </h1>
 
-# kULID
+# KUlid
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <a target="_blank" href="https://www.paypal.me/GuepardoApps" title="Donate using PayPal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg" /></a>
@@ -74,7 +74,7 @@ val entropy = ULID.getEntropy(ulid)     // returns a ByteArray
 
 ## License
 
-kULID is distributed under the MIT license. [See LICENSE](LICENSE.md) for details.
+KUlid is distributed under the MIT license. [See LICENSE](LICENSE.md) for details.
 
 ```
 MIT License
