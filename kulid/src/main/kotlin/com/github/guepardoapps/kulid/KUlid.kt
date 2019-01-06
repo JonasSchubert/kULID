@@ -115,7 +115,7 @@ class ULID {
          * @param string         String
          * @return               ULID string
          */
-        fromString(string: String):String {
+        fun fromString(string: String): String {
             if (!ULID.isValid(string)) {
                 throw IllegalArgumentException("Invalid string value for an ulid")
             }
