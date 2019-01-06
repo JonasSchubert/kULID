@@ -1,3 +1,3 @@
 - [x] add sourcecode
 - [x] add unit tests
-- [ ] add release
+- [x] add release
