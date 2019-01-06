@@ -111,6 +111,19 @@ class ULID {
         )
 
         /**
+         * Generate ULID string from provided string
+         * @param string         String
+         * @return               ULID string
+         */
+        fromString(string: String):String {
+            if (!ULID.isValid(string)) {
+                throw IllegalArgumentException("Invalid string value for an ulid")
+            }
+
+            return string
+        }
+
+        /**
          * Generate random ULID string using [kotlin.random.Random] instance.
          * @return               ULID string
          */

@@ -106,8 +106,7 @@ class KUlidTests {
         val value = ULID.random()
         assertNotNull("Generated ULID must not be null", value)
         assertEquals("Generated ULID length must be 26", 26, value.length)
-        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]",
-                value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
+        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]", value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
     }
 
     @Test
@@ -116,6 +115,14 @@ class KUlidTests {
         assertNotNull("Generated ULID must not be null", value)
         assertEquals("Generated ULID length must be 26, but returned " + value.length + " instead", 26, value.length)
         assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ], but returned $value instead", value.matches(("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}").toRegex()))
+    }
+
+    @Test
+    fun testFromString() {
+        val value = ULID.fromString("003JZ9J6G80123456789abcdef")
+        assertNotNull("Generated ULID must not be null", value)
+        assertEquals("Generated ULID length must be 26", 26, value.length)
+        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]", value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
     }
 
     @Test

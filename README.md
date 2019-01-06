@@ -13,9 +13,9 @@
 <a target="_blank" href="https://www.paypal.me/GuepardoApps" title="Donate using PayPal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg" /></a>
 
 [![](https://jitpack.io/v/GuepardoApps/KUlid.svg)](https://jitpack.io/#GuepardoApps/KUlid)
-[![Version](https://img.shields.io/badge/version-v1.0.0.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.0.0.0)
+[![Version](https://img.shields.io/badge/version-v1.1.0.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.0.0)
 [![Build](https://img.shields.io/badge/build-success-green.svg)](kulid)
-[![CodeCoverage](https://img.shields.io/badge/codeCoverage-100-green.svg)](kulid)
+[![CodeCoverage](https://img.shields.io/badge/codeCoverage-95-green.svg)](kulid)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
@@ -40,7 +40,7 @@ Add the dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.github.GuepardoApps:KUlid:1.0.0.0'
+    implementation 'com.github.GuepardoApps:KUlid:1.1.0.0'
 }
 ```
 
@@ -51,6 +51,7 @@ ULID generation examples:
 ```kotlin
 val randomUlid = ULID.random()
 val generateUlid = ULID.generate(System.currentTimeMillis(), byteArrayOf(0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9))
+val stringUlid = ULID.fromString("003JZ9J6G80123456789abcdef")
 ```
 
 ULID parsing examples:
