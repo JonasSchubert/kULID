@@ -29,18 +29,19 @@ Add the JitPack repository to your `build.gradle`:
 
 ```groovy
 allprojects {
- repositories {
-    maven { url "https://jitpack.io" }
-    }
-}
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 
 Add the dependency to your `build.gradle`:
 
 ```groovy
-dependencies {
-    implementation 'com.github.GuepardoApps.kULID:1.0.0.0'
-}
+	dependencies {
+	        implementation 'com.github.GuepardoApps:KUlid:1.0.0.0'
+	}
 ```
 
 ## Usage
