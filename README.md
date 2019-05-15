@@ -9,14 +9,13 @@
 
 # KUlid
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-<a target="_blank" href="https://www.paypal.me/GuepardoApps" title="Donate using PayPal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg" /></a>
-
 [![](https://jitpack.io/v/GuepardoApps/KUlid.svg)](https://jitpack.io/#GuepardoApps/KUlid)
 [![Version](https://img.shields.io/badge/version-v1.1.0.2-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.0.2)
 [![Build](https://img.shields.io/badge/build-success-green.svg)](kulid)
 [![CodeCoverage](https://img.shields.io/badge/codeCoverage-95-green.svg)](kulid)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 ULID (Universally Unique Lexicographically Sortable Identifier) generator and parser for Kotlin.
