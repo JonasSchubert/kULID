@@ -10,9 +10,9 @@
 # KUlid
 
 [![](https://jitpack.io/v/GuepardoApps/KUlid.svg)](https://jitpack.io/#GuepardoApps/KUlid)
-[![Version](https://img.shields.io/badge/version-v1.1.0.2-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.0.2)
+[![Version](https://img.shields.io/badge/version-1.1.1.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.1.0)
 [![Build](https://img.shields.io/badge/build-success-green.svg)](kulid)
-[![CodeCoverage](https://img.shields.io/badge/codeCoverage-95-green.svg)](kulid)
+[![CodeCoverage](https://img.shields.io/badge/codeCoverage-100-green.svg)](kulid)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
@@ -39,7 +39,7 @@ Add the dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.github.GuepardoApps:KUlid:1.1.0.2'
+    implementation 'com.github.GuepardoApps:KUlid:1.1.1.0'
 }
 ```
 
@@ -50,13 +50,13 @@ ULID generation examples:
 ```kotlin
 val randomUlid = ULID.random()
 val generateUlid = ULID.generate(System.currentTimeMillis(), byteArrayOf(0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9))
-val stringUlid = ULID.fromString("003JZ9J6G80123456789abcdef")
+val stringUlid = ULID.fromString("003JZ9J6G80123456789ABCDEF")
 ```
 
 ULID parsing examples:
 
 ```kotlin
-val ulid = "003JZ9J6G80123456789abcdef"
+val ulid = "003JZ9J6G80123456789ABCDEF"
 val isValid = ULID.isValid(ulid)        // returns a Boolean indicating if the ULID is valid
 val timestamp = ULID.getTimestamp(ulid) // returns a Long
 val entropy = ULID.getEntropy(ulid)     // returns a ByteArray
