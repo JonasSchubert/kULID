@@ -42,7 +42,7 @@ class KUlidTests {
 
         init {
             val stringBuilder = StringBuilder()
-            stringBuilder.append("ULID.generate(").append(java.lang.Long.toString(timestamp)).append("L,")
+            stringBuilder.append("ULID.generate(").append(timestamp.toString()).append("L,")
             if (entropy != null) {
                 stringBuilder.append("new byte[]{")
                 for (index in entropy.indices) {
@@ -119,7 +119,7 @@ class KUlidTests {
 
     @Test
     fun testFromString() {
-        val value = ULID.fromString("003JZ9J6G80123456789abcdef")
+        val value = ULID.fromString("003JZ9J6G80123456789ABCDEF")
         assertNotNull("Generated ULID must not be null", value)
         assertEquals("Generated ULID length must be 26", 26, value.length)
         assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]", value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
