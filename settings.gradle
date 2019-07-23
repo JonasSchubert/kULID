@@ -1,3 +1,2 @@
-include ':kulid'
-rootProject.name = 'kULID'
+include ':kULID'
 
