@@ -115,22 +115,13 @@ class ULID {
          * @param string         String
          * @return               ULID string
          */
-        fun fromString(string: String): String {
-            if (!ULID.isValid(string)) {
-                throw IllegalArgumentException("Invalid string value for an ulid")
-            }
-
-            return string
-        }
+        fun fromString(string: String): String = if (!isValid(string)) { throw IllegalArgumentException("Invalid string value for an ulid") } else { string }
 
         /**
          * Generate random ULID string using [kotlin.random.Random] instance.
          * @return               ULID string
          */
-        fun random(): String {
-            val entropy = Random.nextBytes(defaultEntropySize)
-            return generate(System.currentTimeMillis(), entropy)
-        }
+        fun random(): String = generate(System.currentTimeMillis(), Random.nextBytes(defaultEntropySize))
 
         /**
          * Generate ULID from Unix epoch timestamp in millisecond and entropy bytes.
