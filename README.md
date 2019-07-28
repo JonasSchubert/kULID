@@ -10,9 +10,9 @@
 # KUlid
 
 [![](https://jitpack.io/v/GuepardoApps/KUlid.svg)](https://jitpack.io/#GuepardoApps/KUlid)
-[![Version](https://img.shields.io/badge/version-1.1.1.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.1.0)
-[![Build](https://img.shields.io/badge/build-success-green.svg)](kulid)
-[![CodeCoverage](https://img.shields.io/badge/codeCoverage-100-green.svg)](kulid)
+[![Version](https://img.shields.io/badge/version-1.1.2.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.2.0)
+[![Build](https://img.shields.io/badge/build-success-green.svg)](lib)
+[![CodeCoverage](https://img.shields.io/badge/codeCoverage-100-green.svg)](lib)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
@@ -39,7 +39,7 @@ Add the dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.github.GuepardoApps:KUlid:1.1.1.0'
+    implementation 'com.github.guepardoapps:kulid:1.1.2.0'
 }
 ```
 

@@ -34,7 +34,7 @@ import kotlin.random.Random
  * @author                   GuepardoApps (Jonas Schubert)
  * @since                    1.0.0.0 (06.01.2019)
  */
-class KUlidTests {
+class ULIDUnitTests {
     private val zeroEntropy = byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0)
 
     private class TestParam(val timestamp: Long, val entropy: ByteArray?, val value: String, val isIllegalArgument: Boolean) {
