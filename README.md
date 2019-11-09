@@ -12,7 +12,7 @@
 [![](https://jitpack.io/v/GuepardoApps/KUlid.svg)](https://jitpack.io/#GuepardoApps/KUlid)
 [![Version](https://img.shields.io/badge/version-1.1.2.0-blue.svg)](https://github.com/GuepardoApps/KUlid/releases/tag/1.1.2.0)
 [![Build](https://img.shields.io/badge/build-success-green.svg)](lib)
-[![CodeCoverage](https://img.shields.io/badge/codeCoverage-100-green.svg)](lib)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-green.svg)](lib)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
@@ -72,6 +72,12 @@ val entropy = ULID.getEntropy(ulid)     // returns a ByteArray
 
 - Use at least JVM 1.8
 
+## Contributors
+
+| [<img alt="JonasSchubert" src="https://avatars0.githubusercontent.com/u/21952813?v=4&s=117" width="117"/>](https://github.com/JonasSchubert) |
+| :---------------------------------------------------------------------------------------------------------------------------------------: |
+| [Jonas Schubert](https://github.com/JonasSchubert) |
+
 ## License
 
 KUlid is distributed under the MIT license. [See LICENSE](LICENSE.md) for details.
@@ -79,7 +85,7 @@ KUlid is distributed under the MIT license. [See LICENSE](LICENSE.md) for detail
 ```
 MIT License
 
-Copyright (c) 2019 GuepardoApps (Jonas Schubert)
+Copyright (c) 2019 Jonas Schubert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
