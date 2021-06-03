@@ -51,7 +51,7 @@ Add the dependency to your `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.guepardoapps:kulid:1.1.2.0")
+    implementation("com.github.guepardoapps:kulid:2.0.0.0")
 }
 ```
 
@@ -72,7 +72,7 @@ Add the dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.github.guepardoapps:kulid:1.1.2.0'
+    implementation 'com.github.guepardoapps:kulid:2.0.0.0'
 }
 ```
 
