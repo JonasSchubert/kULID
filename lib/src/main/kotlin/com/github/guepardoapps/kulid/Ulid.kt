@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2019 GuepardoApps (Jonas Schubert)
+ * Copyright (c) 2019-2021 GuepardoApps (Jonas Schubert)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,24 +30,24 @@ import kotlin.random.Random
 class ULID {
     companion object {
         /**
-         * ULID string length.
-         */
-        private const val ulidLength = 26
-
-        /**
          * The default entropy size
          */
-        private const val defaultEntropySize = 10
-
-        /**
-         * Minimum allowed timestamp value.
-         */
-        const val minTime = 0x0L
+        private const val DEFAULT_ENTROPY_SIZE = 10
 
         /**
          * Maximum allowed timestamp value.
          */
-        const val maxTime = 0x0000ffffffffffffL
+        const val TIMESTAMP_MAX = 0x0000ffffffffffffL
+
+        /**
+         * Minimum allowed timestamp value.
+         */
+        const val TIMESTAMP_MIN = 0x0L
+
+        /**
+         * ULID string length.
+         */
+        private const val ULID_LENGTH = 26
 
         /**
          * Base32 characters mapping
@@ -121,7 +121,7 @@ class ULID {
          * Generate random ULID string using [kotlin.random.Random] instance.
          * @return               ULID string
          */
-        fun random(): String = generate(System.currentTimeMillis(), Random.nextBytes(defaultEntropySize))
+        fun random(): String = generate(System.currentTimeMillis(), Random.nextBytes(DEFAULT_ENTROPY_SIZE))
 
         /**
          * Generate ULID from Unix epoch timestamp in millisecond and entropy bytes.
@@ -132,11 +132,11 @@ class ULID {
          * @return               ULID string
          */
         fun generate(time: Long, entropy: ByteArray?): String {
-            if (time < minTime || time > maxTime || entropy == null || entropy.size < defaultEntropySize) {
+            if (time < TIMESTAMP_MIN || time > TIMESTAMP_MAX || entropy == null || entropy.size < DEFAULT_ENTROPY_SIZE) {
                 throw IllegalArgumentException("Time is too long, or entropy is less than 10 bytes or null")
             }
 
-            val chars = CharArray(ulidLength)
+            val chars = CharArray(ULID_LENGTH)
 
             // time
             chars[0] = charMapping[time.ushr(45).toInt() and 0x1f]
@@ -177,14 +177,14 @@ class ULID {
          * @return               true if ULID string is valid
          */
         fun isValid(ulid: String?): Boolean {
-            if (ulid == null || ulid.length != ulidLength) {
+            if (ulid == null || ulid.length != ULID_LENGTH) {
                 return false
             }
 
             for (char in ulid) {
-                if (char.toInt() < 0
-                        || char.toInt() > charToByteMapping.size
-                        || charToByteMapping[char.toInt()] == 0xff.toByte()) {
+                if (char.code < 0
+                        || char.code > charToByteMapping.size
+                        || charToByteMapping[char.code] == 0xff.toByte()) {
                     return false
                 }
             }
@@ -200,16 +200,16 @@ class ULID {
          * @return               Unix epoch timestamp in millisecond
          */
         fun getTimestamp(ulid: CharSequence): Long {
-            return (charToByteMapping[ulid[0].toInt()].toLong() shl 45
-                    or (charToByteMapping[ulid[1].toInt()].toLong() shl 40)
-                    or (charToByteMapping[ulid[2].toInt()].toLong() shl 35)
-                    or (charToByteMapping[ulid[3].toInt()].toLong() shl 30)
-                    or (charToByteMapping[ulid[4].toInt()].toLong() shl 25)
-                    or (charToByteMapping[ulid[5].toInt()].toLong() shl 20)
-                    or (charToByteMapping[ulid[6].toInt()].toLong() shl 15)
-                    or (charToByteMapping[ulid[7].toInt()].toLong() shl 10)
-                    or (charToByteMapping[ulid[8].toInt()].toLong() shl 5)
-                    or charToByteMapping[ulid[9].toInt()].toLong())
+            return (charToByteMapping[ulid[0].code].toLong() shl 45
+                    or (charToByteMapping[ulid[1].code].toLong() shl 40)
+                    or (charToByteMapping[ulid[2].code].toLong() shl 35)
+                    or (charToByteMapping[ulid[3].code].toLong() shl 30)
+                    or (charToByteMapping[ulid[4].code].toLong() shl 25)
+                    or (charToByteMapping[ulid[5].code].toLong() shl 20)
+                    or (charToByteMapping[ulid[6].code].toLong() shl 15)
+                    or (charToByteMapping[ulid[7].code].toLong() shl 10)
+                    or (charToByteMapping[ulid[8].code].toLong() shl 5)
+                    or charToByteMapping[ulid[9].code].toLong())
         }
 
         /**
@@ -220,32 +220,32 @@ class ULID {
          * @return               Entropy bytes
          */
         fun getEntropy(ulid: CharSequence): ByteArray {
-            val bytes = ByteArray(defaultEntropySize)
+            val bytes = ByteArray(DEFAULT_ENTROPY_SIZE)
 
-            bytes[0] = (charToByteMapping[ulid[10].toInt()].toInt() shl 3
-                    or (charToByteMapping[ulid[11].toInt()] and 0xff.toByte()).toInt().ushr(2)).toByte()
-            bytes[1] = (charToByteMapping[ulid[11].toInt()].toInt() shl 6
-                    or (charToByteMapping[ulid[12].toInt()].toInt() shl 1)
-                    or (charToByteMapping[ulid[13].toInt()] and 0xff.toByte()).toInt().ushr(4)).toByte()
-            bytes[2] = (charToByteMapping[ulid[13].toInt()].toInt() shl 4
-                    or (charToByteMapping[ulid[14].toInt()] and 0xff.toByte()).toInt().ushr(1)).toByte()
-            bytes[3] = (charToByteMapping[ulid[14].toInt()].toInt() shl 7
-                    or (charToByteMapping[ulid[15].toInt()].toInt() shl 2)
-                    or (charToByteMapping[ulid[16].toInt()] and 0xff.toByte()).toInt().ushr(3)).toByte()
-            bytes[4] = (charToByteMapping[ulid[16].toInt()].toInt() shl 5
-                    or (charToByteMapping[ulid[17].toInt()].toInt())).toByte()
-            bytes[5] = (charToByteMapping[ulid[18].toInt()].toInt() shl 3
-                    or (charToByteMapping[ulid[19].toInt()] and 0xff.toByte()).toInt().ushr(2)).toByte()
-            bytes[6] = (charToByteMapping[ulid[19].toInt()].toInt() shl 6
-                    or (charToByteMapping[ulid[20].toInt()].toInt() shl 1)
-                    or (charToByteMapping[ulid[21].toInt()] and 0xff.toByte()).toInt().ushr(4)).toByte()
-            bytes[7] = (charToByteMapping[ulid[21].toInt()].toInt() shl 4
-                    or (charToByteMapping[ulid[22].toInt()] and 0xff.toByte()).toInt().ushr(1)).toByte()
-            bytes[8] = (charToByteMapping[ulid[22].toInt()].toInt() shl 7
-                    or (charToByteMapping[ulid[23].toInt()].toInt() shl 2)
-                    or (charToByteMapping[ulid[24].toInt()] and 0xff.toByte()).toInt().ushr(3)).toByte()
-            bytes[9] = (charToByteMapping[ulid[24].toInt()].toInt() shl 5
-                    or (charToByteMapping[ulid[25].toInt()].toInt())).toByte()
+            bytes[0] = (charToByteMapping[ulid[10].code].toInt() shl 3
+                    or (charToByteMapping[ulid[11].code] and 0xff.toByte()).toInt().ushr(2)).toByte()
+            bytes[1] = (charToByteMapping[ulid[11].code].toInt() shl 6
+                    or (charToByteMapping[ulid[12].code].toInt() shl 1)
+                    or (charToByteMapping[ulid[13].code] and 0xff.toByte()).toInt().ushr(4)).toByte()
+            bytes[2] = (charToByteMapping[ulid[13].code].toInt() shl 4
+                    or (charToByteMapping[ulid[14].code] and 0xff.toByte()).toInt().ushr(1)).toByte()
+            bytes[3] = (charToByteMapping[ulid[14].code].toInt() shl 7
+                    or (charToByteMapping[ulid[15].code].toInt() shl 2)
+                    or (charToByteMapping[ulid[16].code] and 0xff.toByte()).toInt().ushr(3)).toByte()
+            bytes[4] = (charToByteMapping[ulid[16].code].toInt() shl 5
+                    or (charToByteMapping[ulid[17].code].toInt())).toByte()
+            bytes[5] = (charToByteMapping[ulid[18].code].toInt() shl 3
+                    or (charToByteMapping[ulid[19].code] and 0xff.toByte()).toInt().ushr(2)).toByte()
+            bytes[6] = (charToByteMapping[ulid[19].code].toInt() shl 6
+                    or (charToByteMapping[ulid[20].code].toInt() shl 1)
+                    or (charToByteMapping[ulid[21].code] and 0xff.toByte()).toInt().ushr(4)).toByte()
+            bytes[7] = (charToByteMapping[ulid[21].code].toInt() shl 4
+                    or (charToByteMapping[ulid[22].code] and 0xff.toByte()).toInt().ushr(1)).toByte()
+            bytes[8] = (charToByteMapping[ulid[22].code].toInt() shl 7
+                    or (charToByteMapping[ulid[23].code].toInt() shl 2)
+                    or (charToByteMapping[ulid[24].code] and 0xff.toByte()).toInt().ushr(3)).toByte()
+            bytes[9] = (charToByteMapping[ulid[24].code].toInt() shl 5
+                    or (charToByteMapping[ulid[25].code].toInt())).toByte()
 
             return bytes
         }

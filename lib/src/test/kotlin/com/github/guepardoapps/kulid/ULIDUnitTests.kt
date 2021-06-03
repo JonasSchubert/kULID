@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2019 GuepardoApps (Jonas Schubert)
+ * Copyright (c) 2019-2021 GuepardoApps (Jonas Schubert)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,8 +61,8 @@ class ULIDUnitTests {
     }
 
     private val testParameters = arrayOf(
-            TestParam(ULID.minTime, zeroEntropy, "00000000000000000000000000", false),
-            TestParam(ULID.maxTime, zeroEntropy, "7ZZZZZZZZZ0000000000000000", false),
+            TestParam(ULID.TIMESTAMP_MIN, zeroEntropy, "00000000000000000000000000", false),
+            TestParam(ULID.TIMESTAMP_MAX, zeroEntropy, "7ZZZZZZZZZ0000000000000000", false),
             TestParam(0x00000001L, zeroEntropy, "00000000010000000000000000", false),
             TestParam(0x0000000fL, zeroEntropy, "000000000F0000000000000000", false),
             TestParam(0x00000010L, zeroEntropy, "000000000G0000000000000000", false),
@@ -91,15 +91,15 @@ class ULIDUnitTests {
             TestParam(0x000007ffL, zeroEntropy, "00000001ZZ0000000000000000", false),
             TestParam(0x00000800L, zeroEntropy, "00000002000000000000000000", false),
             TestParam(0x00007fffL, zeroEntropy, "0000000ZZZ0000000000000000", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x01), "00000000000000000000000001", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0f), "0000000000000000000000000F", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x10), "0000000000000000000000000G", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1f), "0000000000000000000000000Z", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x20), "00000000000000000000000010", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x21), "00000000000000000000000011", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f), "0000000000000000000000001F", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x30), "0000000000000000000000001G", false),
-            TestParam(ULID.minTime, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3f), "0000000000000000000000001Z", false))
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x01), "00000000000000000000000001", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0f), "0000000000000000000000000F", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x10), "0000000000000000000000000G", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1f), "0000000000000000000000000Z", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x20), "00000000000000000000000010", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x21), "00000000000000000000000011", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f), "0000000000000000000000001F", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x30), "0000000000000000000000001G", false),
+            TestParam(ULID.TIMESTAMP_MIN, byteArrayOf(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3f), "0000000000000000000000001Z", false))
 
     @Test
     fun testRandom() {
