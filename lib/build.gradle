@@ -4,8 +4,8 @@ apply plugin: 'jacoco'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testImplementation "junit:junit:$junit_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10"
+    testImplementation "junit:junit:4.12"
 }
 
 compileKotlin {
