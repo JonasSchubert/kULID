@@ -34,6 +34,29 @@ Refer the [ULID spec](https://github.com/ulid/spec) for a more detailed ULID spe
 
 ## Installation
 
+### Kotlin DSL
+
+Add the JitPack repository to your `build.gradle.kts`:
+
+```kotlin
+allprojects {
+   repositories {
+      ...
+      maven { url = uri("https://jitpack.io") }
+   }
+}
+```
+
+Add the dependency to your `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("com.github.guepardoapps:kulid:1.1.2.0")
+}
+```
+
+### Groovy DSL
+
 Add the JitPack repository to your `build.gradle`:
 
 ```groovy
