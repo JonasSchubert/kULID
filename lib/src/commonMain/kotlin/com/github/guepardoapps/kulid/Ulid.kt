@@ -24,6 +24,7 @@
 
 package com.github.guepardoapps.kulid
 
+import kotlinx.datetime.Clock
 import kotlin.experimental.and
 import kotlin.random.Random
 
@@ -121,11 +122,11 @@ class ULID {
          * Generate random ULID string using [kotlin.random.Random] instance.
          * @return               ULID string
          */
-        fun random(): String = generate(System.currentTimeMillis(), Random.nextBytes(DEFAULT_ENTROPY_SIZE))
+        fun random(): String = generate(Clock.System.now().toEpochMilliseconds(), Random.nextBytes(DEFAULT_ENTROPY_SIZE))
 
         /**
          * Generate ULID from Unix epoch timestamp in millisecond and entropy bytes.
-         * Throws [java.lang.IllegalArgumentException] if timestamp is less than {@value #MIN_TIME},
+         * Throws [kotlin.IllegalArgumentException] if timestamp is less than {@value #MIN_TIME},
          * is more than {@value #MAX_TIME}, or entropy bytes is null or less than 10 bytes.
          * @param time           Unix epoch timestamp in millisecond
          * @param entropy        Entropy bytes
@@ -168,7 +169,7 @@ class ULID {
             chars[24] = charMapping[(entropy[8].toInt() shl 3 or (entropy[9].toShort() and 0xff).toInt().ushr(5) and 0x1f)]
             chars[25] = charMapping[(entropy[9].toInt() and 0x1f)]
 
-            return String(chars)
+            return chars.concatToString()
         }
 
         /**
