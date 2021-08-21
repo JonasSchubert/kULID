@@ -24,9 +24,9 @@
 
 package com.github.guepardoapps.kulid
 
-import org.junit.Assert.*
-import org.junit.Test
+import kotlinx.datetime.Clock
 import kotlin.experimental.and
+import kotlin.test.*
 import kotlin.random.Random
 
 /**
@@ -46,7 +46,7 @@ class ULIDUnitTests {
             if (entropy != null) {
                 stringBuilder.append("new byte[]{")
                 for (index in entropy.indices) {
-                    stringBuilder.append("0x").append(Integer.toHexString((entropy[index] and 0xFF.toByte()) + 0x100).substring(1))
+                    stringBuilder.append("0x").append(((entropy[index] and 0xFF.toByte()) + 0x100).toString(16).substring(1))
                     if (index + 1 < entropy.size) {
                         stringBuilder.append(",")
                     }
@@ -104,25 +104,25 @@ class ULIDUnitTests {
     @Test
     fun testRandom() {
         val value = ULID.random()
-        assertNotNull("Generated ULID must not be null", value)
-        assertEquals("Generated ULID length must be 26", 26, value.length)
-        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]", value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
+        assertNotNull(value, "Generated ULID must not be null")
+        assertEquals(26, value.length, "Generated ULID length must be 26")
+        assertTrue(value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()), "Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]")
     }
 
     @Test
     fun testGenerateRandom() {
-        val value = ULID.generate(System.currentTimeMillis(), Random.nextBytes(10))
-        assertNotNull("Generated ULID must not be null", value)
-        assertEquals("Generated ULID length must be 26, but returned " + value.length + " instead", 26, value.length)
-        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ], but returned $value instead", value.matches(("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}").toRegex()))
+        val value = ULID.generate(Clock.System.now().toEpochMilliseconds(), Random.nextBytes(10))
+        assertNotNull(value, "Generated ULID must not be null")
+        assertEquals(26, value.length, "Generated ULID length must be 26, but returned " + value.length + " instead")
+        assertTrue(value.matches(("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}").toRegex()), "Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ], but returned $value instead")
     }
 
     @Test
     fun testFromString() {
         val value = ULID.fromString("003JZ9J6G80123456789ABCDEF")
-        assertNotNull("Generated ULID must not be null", value)
-        assertEquals("Generated ULID length must be 26", 26, value.length)
-        assertTrue("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]", value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()))
+        assertNotNull(value, "Generated ULID must not be null")
+        assertEquals(26, value.length, "Generated ULID length must be 26")
+        assertTrue(value.matches("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}".toRegex()), "Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ]")
     }
 
     @Test
@@ -131,18 +131,18 @@ class ULIDUnitTests {
             var hasIllegalArgumentException = false
             try {
                 val value = ULID.generate(params.timestamp, params.entropy)
-                assertEquals(("Generated ULID must be equal to \"" + params.value + "\" for " + params.reproducer + " , but returned \"" + value + "\" instead"), params.value, value)
-                assertNotNull("Generated ULID must not be null", value)
-                assertEquals("Generated ULID length must be 26, but returned " + value.length + " instead", 26, value.length)
-                assertTrue(("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ], but returned $value instead"), value.matches(("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}").toRegex()))
+                assertEquals(params.value, value, ("Generated ULID must be equal to \"" + params.value + "\" for " + params.reproducer + " , but returned \"" + value + "\" instead"))
+                assertNotNull(value, "Generated ULID must not be null")
+                assertEquals(26, value.length, "Generated ULID length must be 26, but returned " + value.length + " instead")
+                assertTrue(value.matches(("[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}").toRegex()), ("Generated ULID characters must only include [0123456789ABCDEFGHJKMNPQRSTVWXYZ], but returned $value instead"))
             } catch (e: IllegalArgumentException) {
                 hasIllegalArgumentException = true
             }
 
             if (params.isIllegalArgument) {
-                assertTrue("IllegalArgumentException is expected for " + params.reproducer, hasIllegalArgumentException)
+                assertTrue(hasIllegalArgumentException, "IllegalArgumentException is expected for " + params.reproducer)
             } else {
-                assertFalse("IllegalArgumentException is not expected for " + params.reproducer, hasIllegalArgumentException)
+                assertFalse(hasIllegalArgumentException, "IllegalArgumentException is not expected for " + params.reproducer)
             }
         }
     }
@@ -160,7 +160,7 @@ class ULIDUnitTests {
                 "0000000000000000000000000#")
 
         for (ulid in invalidUlids) {
-            assertFalse("ULID \"$ulid\" should be invalid", ULID.isValid(ulid))
+            assertFalse(ULID.isValid(ulid), "ULID \"$ulid\" should be invalid")
         }
     }
 
@@ -168,7 +168,7 @@ class ULIDUnitTests {
     fun testIsValidFixedValues() {
         for (params in testParameters) {
             if (!params.isIllegalArgument) {
-                assertTrue("ULID string is valid", ULID.isValid(params.value))
+                assertTrue(ULID.isValid(params.value), "ULID string is valid")
             }
         }
     }
@@ -177,7 +177,7 @@ class ULIDUnitTests {
     fun testGetTimestampFixedValues() {
         for (params in testParameters) {
             if (!params.isIllegalArgument) {
-                assertEquals("ULID timestamp is different", params.timestamp, ULID.getTimestamp(params.value))
+                assertEquals(params.timestamp, ULID.getTimestamp(params.value), "ULID timestamp is different")
             }
         }
     }
@@ -186,7 +186,7 @@ class ULIDUnitTests {
     fun testGetEntropyFixedValues() {
         for (params in testParameters) {
             if (!params.isIllegalArgument) {
-                assertArrayEquals("ULID entropy is different", params.entropy, ULID.getEntropy(params.value))
+                assertContentEquals(params.entropy, ULID.getEntropy(params.value), "ULID entropy is different")
             }
         }
     }
